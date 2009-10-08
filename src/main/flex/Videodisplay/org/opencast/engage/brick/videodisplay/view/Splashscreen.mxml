@@ -4,27 +4,35 @@
 	currentState="{model.currentPlayerState}"
 	rollOver="showPauseButton();"
 	rollOut="hidePauseButton();"
-	mouseWheel="changeZoomLevel(event);"
-	mouseDown="setMousePosition(event);"
-	mouseMove="dragDisplay(event);"
-	mouseUp="setDisplayPos(event);"
+	mouseWheel="zoomController.changeZoomLevel(event.delta);"
+	mouseDown="dragController.startDrag(event.stageX, event.stageY);"
+	mouseMove="dragController.dragDisplay(event.stageX, event.stageY);"
+	mouseUp="dragController.stopDrag(event.stageX, event.stageY);"
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
-			import mx.controls.Alert;
+			import org.opencast.engage.brick.videodisplay.control.DragController;
+			import org.opencast.engage.brick.videodisplay.control.ZoomController;
 			import org.opencast.engage.brick.videodisplay.control.event.SetVolumeEvent;
 			import org.opencast.engage.brick.videodisplay.state.PlayerState;
 			import org.opencast.engage.brick.videodisplay.control.event.VideoControlEvent;
 			import org.swizframework.Swiz;
 			import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
 			
-		[Autowire]
-		[Bindable]
-		public var model:VideodisplayModel;
-		
-		private var dragStartPos: Point; 
-		private var dispStartPos: Point; 
-		private var draggingDisplay: Boolean = false;
+			
+			[Autowire]
+			[Bindable]
+			public var model:VideodisplayModel;
+			
+			[Autowire(bean="zoomController")]
+			public var zoomController: ZoomController;
+			
+			[Autowire(bean="dragController")]
+			public var dragController: DragController;
+			
+			private var dragStartPos: Point; 
+			private var dispStartPos: Point; 
+			private var draggingDisplay: Boolean = false;
 		
 			private function showPauseButton(): void {
 				
@@ -41,44 +49,7 @@
 					pauseButton_up.visible = false;
 			
 			}
-			
-			private function changeZoomLevel( evt: MouseEvent ): void {
-			
-				// change zoomlevel; min 100%
-				model.zoomLevel = model.zoomLevel + evt.delta < 100 ? 100 : model.zoomLevel + evt.delta;
-			
-			}
-			
-			private function setMousePosition(evt: MouseEvent): void {
-			
-				dragStartPos = new Point(evt.stageX, evt.stageY);
-				dispStartPos = new Point(model.displayPositionX, model.displayPositionY);
-				draggingDisplay = true;
-				trace('blubb');
-			
-			}
-			
-			private function dragDisplay( evt: MouseEvent ): void {
-			
-				if (draggingDisplay) {
-					//dragStartPos = new Point(evt.stageX, evt.stageY);
-					model.displayPositionX = dispStartPos.x + evt.stageX - dragStartPos.x;
-					model.displayPositionY = dispStartPos.y + evt.stageY - dragStartPos.y;
-					trace(dragStartPos.x, evt.stageX, evt.stageX - dragStartPos.x);					
-				}
-			
-			}
-			
-			private function setDisplayPos( evt: MouseEvent ): void {
-			
-				if (draggingDisplay) {
-					model.displayPositionX = dispStartPos.x + evt.stageX - dragStartPos.x;
-					model.displayPositionY = dispStartPos.y + evt.stageY - dragStartPos.y;
-					draggingDisplay = false;
-				}
-			
-			
-			}
+
 		]]>
 	</mx:Script>
 	<mx:states>

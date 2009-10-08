@@ -4,7 +4,13 @@
 	xmlns:business="org.opencast.engage.brick.videodisplay.business.*"
 	xmlns:model="org.opencast.engage.brick.videodisplay.model.*"
 	xmlns:control="org.opencast.engage.brick.videodisplay.control.*">
+	
 	<business:VideodisplayDelegate id="videodisplayDelegate"/>
+	
 	<model:VideodisplayModel id="videodisplayModel"/>
+	
 	<control:VideodisplayController id="videodisplayController"/>
+	<control:ZoomController id="zoomController"/>
+	<control:DragController id="dragController"/>
+	
 </BeanLoader>

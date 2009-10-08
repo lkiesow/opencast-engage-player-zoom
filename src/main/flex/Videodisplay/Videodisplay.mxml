@@ -46,11 +46,6 @@
 			{
 				Swiz.getInstance().loadBeans( [VideodisplayBean ] );
 				Swiz.autowire(this);
-				systemManager.addEventListener(MouseEvent.MOUSE_WHEEL, doMouseWheel);
-			}
-			
-			private function onCreationComplete(): void {
-				// this.setChildIndex( lblZoomLevel , this.getChildren().length);				
 			}
 			
 			public function play():void
