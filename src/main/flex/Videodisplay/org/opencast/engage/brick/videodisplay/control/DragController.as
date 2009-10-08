@@ -42,7 +42,7 @@ package org.opencast.engage.brick.videodisplay.control {
 				model.displayPositionY = dispStartPos.y + mousePosY - dragStartPos.y < 0
 					? ( 
 						dispStartPos.y + mousePosY - dragStartPos.y + dispHeight < Application.application.height
-						? Application.application.width - dispWidth
+						? Application.application.height - dispHeight
 						: dispStartPos.y + mousePosY - dragStartPos.y
 					)
 					: 0;					
@@ -66,7 +66,7 @@ package org.opencast.engage.brick.videodisplay.control {
 				model.displayPositionY = dispStartPos.y + mousePosY - dragStartPos.y < 0
 					? ( 
 						dispStartPos.y + mousePosY - dragStartPos.y + dispHeight < Application.application.height
-						? Application.application.width - dispWidth
+						? Application.application.height - dispHeight
 						: dispStartPos.y + mousePosY - dragStartPos.y
 					)
 					: 0;

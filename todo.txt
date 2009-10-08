@@ -2,8 +2,9 @@ X implement zoom in via mouse wheel
 X implement drag'n'drop for video display
 X implement as (swiz-)mvc-structure
 X disable dragging the video out of the window
+X adjust videodisplay to window while zooming
 
-- fit in window during zoomout
+- zoom to cursor position
 - don't stop video (2x) while dragging/zooming
 - create "default zoom" button
 - create an "where am I" window
