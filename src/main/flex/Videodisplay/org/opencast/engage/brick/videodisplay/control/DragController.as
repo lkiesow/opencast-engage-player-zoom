@@ -2,7 +2,7 @@ package org.opencast.engage.brick.videodisplay.control {
 	
 	import flash.geom.Point;
 	
-	import mx.controls.Alert;
+	import mx.core.Application;
 	
 	import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
 	import org.swizframework.controller.AbstractController;
@@ -28,12 +28,23 @@ package org.opencast.engage.brick.videodisplay.control {
 		
 		public function dragDisplay( mousePosX: Number, mousePosY: Number ): void {
 		
+			var dispWidth : int = Application.application.width  * model.zoomLevel / 100;
+			var dispHeight: int = Application.application.height * model.zoomLevel / 100;
+		
 			if (draggingDisplay) {
 				model.displayPositionX = dispStartPos.x + mousePosX - dragStartPos.x < 0 
-					? dispStartPos.x + mousePosX - dragStartPos.x
+					? ( 
+						(dispStartPos.x + mousePosX - dragStartPos.x) + dispWidth < Application.application.width
+						? Application.application.width - dispWidth
+						: dispStartPos.x + mousePosX - dragStartPos.x
+					) 
 					: 0;
 				model.displayPositionY = dispStartPos.y + mousePosY - dragStartPos.y < 0
-					? dispStartPos.y + mousePosY - dragStartPos.y
+					? ( 
+						dispStartPos.y + mousePosY - dragStartPos.y + dispHeight < Application.application.height
+						? Application.application.width - dispWidth
+						: dispStartPos.y + mousePosY - dragStartPos.y
+					)
 					: 0;					
 			}
 		
@@ -41,12 +52,23 @@ package org.opencast.engage.brick.videodisplay.control {
 		
 		public function stopDrag( mousePosX: Number, mousePosY: Number ): void {
 		
+			var dispWidth : int = Application.application.width  * model.zoomLevel / 100;
+			var dispHeight: int = Application.application.height * model.zoomLevel / 100;
+			
 			if (draggingDisplay) {
 				model.displayPositionX = dispStartPos.x + mousePosX - dragStartPos.x < 0 
-					? dispStartPos.x + mousePosX - dragStartPos.x 
+					? ( 
+						(dispStartPos.x + mousePosX - dragStartPos.x) + dispWidth < Application.application.width
+						? Application.application.width - dispWidth
+						: dispStartPos.x + mousePosX - dragStartPos.x
+					) 
 					: 0;
 				model.displayPositionY = dispStartPos.y + mousePosY - dragStartPos.y < 0
-					? dispStartPos.y + mousePosY - dragStartPos.y
+					? ( 
+						dispStartPos.y + mousePosY - dragStartPos.y + dispHeight < Application.application.height
+						? Application.application.width - dispWidth
+						: dispStartPos.y + mousePosY - dragStartPos.y
+					)
 					: 0;
 				draggingDisplay = false;
 			}

@@ -3,7 +3,7 @@
 	backgroundAlpha="1.0"
 	currentState="{model.currentPlayerState}"
 	rollOver="showPauseButton();"
-	rollOut="hidePauseButton();"
+	rollOut="hidePauseButton(); dragController.stopDrag(event.stageX, event.stageY);"
 	mouseWheel="zoomController.changeZoomLevel(event.delta);"
 	mouseDown="dragController.startDrag(event.stageX, event.stageY);"
 	mouseMove="dragController.dragDisplay(event.stageX, event.stageY);"
