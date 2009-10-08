@@ -1,0 +1,13 @@
+X implement zoom in via mouse wheel
+X implement drag'n'drop for video display
+
+- don't stop video (2x) while dragging/zooming
+- disable dragging the video out of the window
+- create "default zoom" button
+- create an "where am I" window
+- add mac mousewheel support
+
+- use ajax bridge
+- throw out all start/stop buttons
+- remove dark overlay
+- create zoom-buttons outside
