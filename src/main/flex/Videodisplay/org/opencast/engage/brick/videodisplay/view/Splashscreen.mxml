@@ -37,6 +37,7 @@
 			private function showPauseButton(): void {
 				
 				lblZoomLevel.visible = true;
+				defaultZoomButton.visible = true;
 				if (this.currentState == PlayerState.PLAYING)
 					pauseButton_up.visible = true;
 			
@@ -45,6 +46,7 @@
 			private function hidePauseButton(): void {
 			
 				lblZoomLevel.visible = false;
+				defaultZoomButton.visible = false;
 				if (this.currentState == PlayerState.PLAYING)
 					pauseButton_up.visible = false;
 			
@@ -116,6 +118,36 @@
 		right="{ this.width / 25 }"
 		bottom="{ this.width / 50 }"
 		buttonMode="true" />
+		
+	<mx:Button id="defaultZoomButton"
+		click="zoomController.setZoomLevel(100);"
+		width="{ this.width / 12 }"
+		height="{ defaultZoomButton.width }"
+		styleName="DefaultZoom"
+		visible="false"
+		right="{ this.width / 25 + this.width / 10 }"
+		bottom="{ this.width / 50 }"
+		buttonMode="true" />
+		
+	<mx:Canvas id="positionDisplay"
+		top="{ this.width / 50 }"
+		right="{ this.width / 25 }"
+		width="{ this.width / 5 }"
+		height="{ this.height / 5 }"
+		backgroundColor="#ffffff"
+		backgroundAlpha="0.25"
+		visible="true"
+		styleName="PositionDisplay" >
+		
+		<mx:Canvas id="position"
+			width="80%"
+			height="80%"
+			backgroundAlpha="0.25"
+			backgroundColor="#ffffff"
+			visible="true"
+			styleName="display" />
+		
+	</mx:Canvas>
 		
 	<mx:NumberFormatter id="zoomNumFormat" />
 	<mx:Label id="lblZoomLevel" 
