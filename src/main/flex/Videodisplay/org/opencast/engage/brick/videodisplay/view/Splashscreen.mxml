@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
 	backgroundAlpha="1.0"
-	currentState="{model.currentPlayerState}"
+	currentState="{ model.currentPlayerState }"	
 	rollOver="showControls();"
 	rollOut="hideControls(); dragController.stopDrag(event.stageX, event.stageY);"
 	mouseWheel="zoomController.changeZoomLevel(event.delta);"
@@ -20,6 +20,13 @@
 			import org.swizframework.Swiz;
 			import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
 			
+			// size and position of buttons, ...
+			[Bindable] 
+			private var buttonSizeFactor        : int = 20;
+			[Bindable] 
+			private var buttonRightGapFactor    : int = 60;
+			[Bindable] 
+			private var buttonBottomGapFactor   : int = 75;
 			
 			[Autowire]
 			[Bindable]
@@ -30,51 +37,48 @@
 			
 			[Autowire(bean="dragController")]
 			public var dragController: DragController;
-			
-			private var dragStartPos: Point; 
-			private var dispStartPos: Point; 
-			private var draggingDisplay: Boolean = false;
 		
 			private function showControls(): void {
 				
-				positionDisplay.visible = true;
-				lblZoomLevel.visible = true;
-				defaultZoomButton.visible = true;
-				if (this.currentState == PlayerState.PLAYING)
-					pauseButton_up.visible = true;
+				controlBar.visible = true;
 			
 			}
 			
 			private function hideControls(): void {
 			
-				positionDisplay.visible = false;
-				lblZoomLevel.visible = false;
-				defaultZoomButton.visible = false;
-				if (this.currentState == PlayerState.PLAYING)
-					pauseButton_up.visible = false;
+				controlBar.visible = false;
+			
+			}
+			
+			private function playPauseClick(evt: MouseEvent): void {
+				
+				if (this.currentState == PlayerState.PLAYING) {
+					playPauseButton.styleName = 'Play';
+					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));
+				} else {
+					playPauseButton.styleName = 'Pause';
+					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));				
+				} 
+				showControls();
 			
 			}
 
 		]]>
 	</mx:Script>
+	
 	<mx:states>
 		<mx:State name="{PlayerState.PLAYING}">
-			<mx:SetProperty target="{playButton_up}"
-				name="visible"
-				value="false"/>
-			<mx:SetProperty target="{pauseButton_up}"
-				name="visible"
-				value="false"/>
+			<mx:SetProperty target="{ playPauseButton }"
+				name="styleName"
+				value="Pause"/>
 		</mx:State>
 		<mx:State name="{PlayerState.PAUSING}">
-			<mx:SetProperty target="{playButton_up}"
-				name="visible"
-				value="true"/>
-			<mx:SetProperty target="{pauseButton_up}"
-				name="visible"
-				value="false"/>
+			<mx:SetProperty target="{ playPauseButton }"
+				name="styleName"
+				value="Play"/>
 		</mx:State>
 	</mx:states>
+	
 	<mx:transitions>
 		<mx:Transition id="fadeOut"
 			fromState="{PlayerState.PLAYING}"
@@ -95,6 +99,7 @@
 			</mx:Parallel>
 		</mx:Transition>
 	</mx:transitions>
+	
 	<mx:Canvas id="curtain"
 		backgroundColor="#000000"
 		backgroundAlpha="0.5"
@@ -103,35 +108,49 @@
 		x="0"
 		y="0">
 	</mx:Canvas>
-	<mx:Button id="playButton_up"
-		click="Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY)); showControls();"
-		width="{ this.width / 12 }"
-		height="{playButton_up.width}"
-		styleName="Play"
-		visible="false"
-		right="{ this.width / 25 }"
-		bottom="{ this.width / 50 }"
-		buttonMode="true"/>
-	<mx:Button id="pauseButton_up"
-		click="Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));"
-		width="{ this.width / 12 }"
-		height="{pauseButton_up.width}"
-		styleName="Pause"
-		visible="false"
-		right="{ this.width / 25 }"
-		bottom="{ this.width / 50 }"
-		buttonMode="true" />
+	
+	<mx:Canvas id="controlBar"
+		width="100%"
+		bottom="25"
+		backgroundColor="#000000"
+		backgroundAlpha="0.5" 
+		borderColor="#000000"
+		borderThickness="5">
+		<mx:HBox right="25" 
+			top="5"
+			bottom="5">
 		
-	<mx:Button id="defaultZoomButton"
-		label="100%"
-		click="zoomController.setZoomLevel(100);"
-		width="{ this.width / 12 }"
-		height="{ defaultZoomButton.width }"
-		styleName="DefaultZoom"
-		visible="false"
-		right="{ this.width / 25 + this.width / 10 }"
-		bottom="{ this.width / 50 }"
-		buttonMode="true" />
+			<mx:Button id="playPauseButton"
+				click="playPauseClick(event);"
+				width="{ this.width / buttonSizeFactor }"
+				height="{ this.width / buttonSizeFactor }"
+				styleName="Play"
+				buttonMode="true" />
+				
+			<mx:Button id="defaultZoomButton"
+				click="zoomController.setZoomLevel(100);"
+				width="{ this.width / buttonSizeFactor }"
+				height="{ this.width / buttonSizeFactor }"
+				styleName="DefaultZoom"
+				buttonMode="true" />
+				
+			<mx:Button id="zoomOutButton"
+				click="zoomController.changeZoomLevel(-5);"
+				width="{ this.width / buttonSizeFactor }"
+				height="{ this.width / buttonSizeFactor }"
+				styleName="ZoomOut"
+				buttonMode="true" />
+				
+			<mx:Button id="zoomInButton"
+				click="zoomController.changeZoomLevel(5);"
+				width="{ this.width / buttonSizeFactor }"
+				height="{ this.width / buttonSizeFactor }"
+				styleName="ZoomIn"
+				buttonMode="true" />
+						
+		</mx:HBox>
+		
+	</mx:Canvas>
 		
 	<!-- Overlay in the upper right corner
 		which showes the current position -->

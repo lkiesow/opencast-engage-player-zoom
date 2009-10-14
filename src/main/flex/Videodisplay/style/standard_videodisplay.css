@@ -45,3 +45,31 @@ Button.DefaultZoom
   selectedDownSkin: Embed(source='skin_defaultzoom_up.swf');
   selectedDisabledSkin: Embed(source='skin_defaultzoom_up.swf');
 }
+
+Button.ZoomIn
+{
+  font-size: 0;
+
+  upSkin: Embed(source='skin_zoomin_up.swf');
+  overSkin: Embed(source='skin_zoomin_up.swf');
+  downSkin: Embed(source='skin_zoomin_down.swf');
+  disabledSkin: Embed(source='skin_zoomin_up.swf');
+  selectedUpSkin: Embed(source='skin_zoomin_up.swf');
+  selectedOverSkin: Embed(source='skin_zoomin_up.swf');
+  selectedDownSkin: Embed(source='skin_zoomin_up.swf');
+  selectedDisabledSkin: Embed(source='skin_zoomin_up.swf');
+}
+
+Button.ZoomOut
+{
+  font-size: 0;
+
+  upSkin: Embed(source='skin_zoomout_up.swf');
+  overSkin: Embed(source='skin_zoomout_up.swf');
+  downSkin: Embed(source='skin_zoomout_down.swf');
+  disabledSkin: Embed(source='skin_zoomout_up.swf');
+  selectedUpSkin: Embed(source='skin_zoomout_up.swf');
+  selectedOverSkin: Embed(source='skin_zoomout_up.swf');
+  selectedDownSkin: Embed(source='skin_zoomout_up.swf');
+  selectedDisabledSkin: Embed(source='skin_zoomout_up.swf');
+}
