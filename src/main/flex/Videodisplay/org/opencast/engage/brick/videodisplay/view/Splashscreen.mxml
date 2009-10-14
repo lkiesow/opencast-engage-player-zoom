@@ -142,7 +142,7 @@
 		width="{ this.width / 5 }"
 		height="{ this.height / 5 }"
 		backgroundColor="#ffffff"
-		backgroundAlpha="0.25"
+		backgroundAlpha="0.35"
 		visible="false"
 		styleName="PositionDisplay" >
 		
@@ -154,7 +154,7 @@
 				(Application.application.width * model.zoomLevel / 100) }"
 			top="{ positionDisplay.height * - model.displayPositionY / 
 				(Application.application.height * model.zoomLevel / 100) }"
-			backgroundAlpha="0.25"
+			backgroundAlpha="0.35"
 			backgroundColor="#ffffff"
 			visible="true"
 			styleName="InnerPositionDisplay" />

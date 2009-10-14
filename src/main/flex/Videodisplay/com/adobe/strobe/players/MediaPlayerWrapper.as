@@ -57,7 +57,7 @@ package com.adobe.strobe.players
 			_player = new MediaPlayerSprite();
 			mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.AUDIBLE_CHANGE , redispatchEvent);
 			mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.LOADABLE_CHANGE , redispatchEvent);
-			mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PAUSIBLE_CHANGE , redispatchEvent);
+			//mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PAUSIBLE_CHANGE , redispatchEvent);
 			mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PLAYABLE_CHANGE , redispatchEvent);
 			mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.SEEKABLE_CHANGE , redispatchEvent);
 			mediaPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.SPATIAL_CHANGE , redispatchEvent);
@@ -194,11 +194,13 @@ package com.adobe.strobe.players
 		/**
 		*  True when the source mediaElement has the IPausible trait.
 		*/	
+		/*
 		[Event(event = "pausibleChange" , type = "org.openvideoplayer.events.MediaStateChangeEvent")]
 		public function get  pausible() : Boolean
 		{
 			return mediaPlayer.pausible;
 		}
+		*/
 
 		/**
 		*  True when the source mediaElement has the ISeekable trait.

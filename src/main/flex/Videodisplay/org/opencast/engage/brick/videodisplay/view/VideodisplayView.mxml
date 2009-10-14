@@ -6,6 +6,7 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import org.openvideoplayer.utils.URL;
 		  import org.openvideoplayer.net.NetLoadedContext;
 		  import org.openvideoplayer.events.MediaPlayerCapabilityChangeEvent;
 		  import org.openvideoplayer.events.BufferTimeChangeEvent;
@@ -79,7 +80,7 @@
           
 */
 				// Create the new media.
-				media = new VideoElement(new NetLoader(), new URLResource(videoURL));
+				media = new VideoElement(new NetLoader(), new URLResource(new URL(videoURL)));
 				
 				wrapper.scaleMode = ScaleMode.LETTERBOX;
 				
