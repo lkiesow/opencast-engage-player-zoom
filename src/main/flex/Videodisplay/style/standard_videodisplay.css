@@ -31,3 +31,17 @@ Button.Pause
   selectedDownSkin: Embed(source='skin_opencast.swf', symbol='btn_pause_up');
   selectedDisabledSkin: Embed(source='skin_opencast.swf', symbol='btn_pause_up');
 }
+
+Button.DefaultZoom
+{
+  font-size: 0;
+
+  upSkin: Embed(source='skin_defaultzoom_up.swf');
+  overSkin: Embed(source='skin_defaultzoom_up.swf');
+  downSkin: Embed(source='skin_defaultzoom_down.swf');
+  disabledSkin: Embed(source='skin_defaultzoom_up.swf');
+  selectedUpSkin: Embed(source='skin_defaultzoom_up.swf');
+  selectedOverSkin: Embed(source='skin_defaultzoom_up.swf');
+  selectedDownSkin: Embed(source='skin_defaultzoom_up.swf');
+  selectedDisabledSkin: Embed(source='skin_defaultzoom_up.swf');
+}

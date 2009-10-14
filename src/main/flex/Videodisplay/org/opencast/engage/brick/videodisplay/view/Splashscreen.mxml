@@ -2,8 +2,8 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
 	backgroundAlpha="1.0"
 	currentState="{model.currentPlayerState}"
-	rollOver="showPauseButton();"
-	rollOut="hidePauseButton(); dragController.stopDrag(event.stageX, event.stageY);"
+	rollOver="showControls();"
+	rollOut="hideControls(); dragController.stopDrag(event.stageX, event.stageY);"
 	mouseWheel="zoomController.changeZoomLevel(event.delta);"
 	mouseDown="dragController.startDrag(event.stageX, event.stageY);"
 	mouseMove="dragController.dragDisplay(event.stageX, event.stageY);"
@@ -11,6 +11,7 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import mx.core.Application;
 			import org.opencast.engage.brick.videodisplay.control.DragController;
 			import org.opencast.engage.brick.videodisplay.control.ZoomController;
 			import org.opencast.engage.brick.videodisplay.control.event.SetVolumeEvent;
@@ -34,8 +35,9 @@
 			private var dispStartPos: Point; 
 			private var draggingDisplay: Boolean = false;
 		
-			private function showPauseButton(): void {
+			private function showControls(): void {
 				
+				positionDisplay.visible = true;
 				lblZoomLevel.visible = true;
 				defaultZoomButton.visible = true;
 				if (this.currentState == PlayerState.PLAYING)
@@ -43,8 +45,9 @@
 			
 			}
 			
-			private function hidePauseButton(): void {
+			private function hideControls(): void {
 			
+				positionDisplay.visible = false;
 				lblZoomLevel.visible = false;
 				defaultZoomButton.visible = false;
 				if (this.currentState == PlayerState.PLAYING)
@@ -101,7 +104,7 @@
 		y="0">
 	</mx:Canvas>
 	<mx:Button id="playButton_up"
-		click="Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY)); showPauseButton();"
+		click="Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY)); showControls();"
 		width="{ this.width / 12 }"
 		height="{playButton_up.width}"
 		styleName="Play"
@@ -120,6 +123,7 @@
 		buttonMode="true" />
 		
 	<mx:Button id="defaultZoomButton"
+		label="100%"
 		click="zoomController.setZoomLevel(100);"
 		width="{ this.width / 12 }"
 		height="{ defaultZoomButton.width }"
@@ -129,6 +133,9 @@
 		bottom="{ this.width / 50 }"
 		buttonMode="true" />
 		
+	<!-- Overlay in the upper right corner
+		which showes the current position -->
+		
 	<mx:Canvas id="positionDisplay"
 		top="{ this.width / 50 }"
 		right="{ this.width / 25 }"
@@ -136,16 +143,21 @@
 		height="{ this.height / 5 }"
 		backgroundColor="#ffffff"
 		backgroundAlpha="0.25"
-		visible="true"
+		visible="false"
 		styleName="PositionDisplay" >
 		
-		<mx:Canvas id="position"
-			width="80%"
-			height="80%"
+		<!-- I don't like it ... but it works: -->
+		<mx:Canvas id="innerPositionDisplay"
+			width="{ positionDisplay.width * 100 / model.zoomLevel }"
+			height="{ positionDisplay.height * 100 / model.zoomLevel }"
+			left="{ positionDisplay.width * - model.displayPositionX / 
+				(Application.application.width * model.zoomLevel / 100) }"
+			top="{ positionDisplay.height * - model.displayPositionY / 
+				(Application.application.height * model.zoomLevel / 100) }"
 			backgroundAlpha="0.25"
 			backgroundColor="#ffffff"
 			visible="true"
-			styleName="display" />
+			styleName="InnerPositionDisplay" />
 		
 	</mx:Canvas>
 		
