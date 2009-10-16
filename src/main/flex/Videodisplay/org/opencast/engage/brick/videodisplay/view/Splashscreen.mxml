@@ -2,8 +2,8 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
 	backgroundAlpha="1.0"
 	currentState="{ model.currentPlayerState }"	
-	rollOver="showControls();"
-	rollOut="hideControls(); dragController.stopDrag(event.stageX, event.stageY);"
+	rollOver="{ showControls = true; }"
+	rollOut="showControls = false; dragController.stopDrag(event.stageX, event.stageY);"
 	mouseWheel="zoomController.changeZoomLevel(event.delta);"
 	mouseDown="dragController.startDrag(event.stageX, event.stageY);"
 	mouseMove="dragController.dragDisplay(event.stageX, event.stageY);"
@@ -11,6 +11,9 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import org.openvideoplayer.display.MediaPlayerSprite;
+			import mx.controls.Alert;
+			import org.openvideoplayer.media.MediaElement;
 			import mx.core.Application;
 			import org.opencast.engage.brick.videodisplay.control.DragController;
 			import org.opencast.engage.brick.videodisplay.control.ZoomController;
@@ -23,10 +26,9 @@
 			// size and position of buttons, ...
 			[Bindable] 
 			private var buttonSizeFactor        : int = 20;
-			[Bindable] 
-			private var buttonRightGapFactor    : int = 60;
-			[Bindable] 
-			private var buttonBottomGapFactor   : int = 75;
+			
+			[Bindable]
+			private var showControls: Boolean = false;
 			
 			[Autowire]
 			[Bindable]
@@ -37,21 +39,12 @@
 			
 			[Autowire(bean="dragController")]
 			public var dragController: DragController;
-		
-			private function showControls(): void {
-				
-				controlBar.visible = true;
-			
-			}
-			
-			private function hideControls(): void {
-			
-				controlBar.visible = false;
-			
-			}
 			
 			private function playPauseClick(evt: MouseEvent): void {
 				
+				// Videosize:
+				// Video(MediaPlayerSprite(model.player.getChildAt(i)).getChildAt(0)).height
+								
 				if (this.currentState == PlayerState.PLAYING) {
 					playPauseButton.styleName = 'Play';
 					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));
@@ -59,7 +52,7 @@
 					playPauseButton.styleName = 'Pause';
 					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));				
 				} 
-				showControls();
+				//showControls = true;				
 			
 			}
 
@@ -85,7 +78,7 @@
 			toState="{PlayerState.PAUSING}">
 			<mx:Parallel target="{curtain}">
 				<mx:Fade alphaFrom="0"
-					alphaTo="1.0"
+					alphaTo="1"
 					duration="500"/>
 			</mx:Parallel>
 		</mx:Transition>
@@ -93,7 +86,7 @@
 			fromState="{PlayerState.PAUSING}"
 			toState="{PlayerState.PLAYING}">
 			<mx:Parallel target="{curtain}">
-				<mx:Fade alphaFrom="1.0"
+				<mx:Fade alphaFrom="1"
 					alphaTo="0.0"
 					duration="500"/>
 			</mx:Parallel>
@@ -102,7 +95,7 @@
 	
 	<mx:Canvas id="curtain"
 		backgroundColor="#000000"
-		backgroundAlpha="0.5"
+		backgroundAlpha="0.25"
 		width="100%"
 		height="100%"
 		x="0"
@@ -111,11 +104,12 @@
 	
 	<mx:Canvas id="controlBar"
 		width="100%"
-		bottom="25"
+		bottom="5"
 		backgroundColor="#000000"
 		backgroundAlpha="0.5" 
 		borderColor="#000000"
-		borderThickness="5">
+		borderThickness="5"
+		visible="{ showControls || model.currentPlayerState == PlayerState.PAUSING }" >
 		<mx:HBox right="25" 
 			top="5"
 			bottom="5">
@@ -125,28 +119,32 @@
 				width="{ this.width / buttonSizeFactor }"
 				height="{ this.width / buttonSizeFactor }"
 				styleName="Play"
-				buttonMode="true" />
+				buttonMode="true" 
+				toolTip="Start / Stop the video playback" />
 				
 			<mx:Button id="defaultZoomButton"
 				click="zoomController.setZoomLevel(100);"
 				width="{ this.width / buttonSizeFactor }"
 				height="{ this.width / buttonSizeFactor }"
 				styleName="DefaultZoom"
-				buttonMode="true" />
+				buttonMode="true" 
+				toolTip="Set zoomlevel to 100% (is now at { model.zoomLevel }%)" />
 				
 			<mx:Button id="zoomOutButton"
 				click="zoomController.changeZoomLevel(-5);"
 				width="{ this.width / buttonSizeFactor }"
 				height="{ this.width / buttonSizeFactor }"
 				styleName="ZoomOut"
-				buttonMode="true" />
+				buttonMode="true"
+				toolTip="Decreases zoomlevel by 5 (is now at { model.zoomLevel }%)" />
 				
 			<mx:Button id="zoomInButton"
 				click="zoomController.changeZoomLevel(5);"
 				width="{ this.width / buttonSizeFactor }"
 				height="{ this.width / buttonSizeFactor }"
 				styleName="ZoomIn"
-				buttonMode="true" />
+				buttonMode="true" 
+				toolTip="Increases zoomlevel by 5 (is now at { model.zoomLevel }%)"/>
 						
 		</mx:HBox>
 		
@@ -160,10 +158,14 @@
 		right="{ this.width / 25 }"
 		width="{ this.width / 5 }"
 		height="{ this.height / 5 }"
-		backgroundColor="#ffffff"
-		backgroundAlpha="0.35"
-		visible="false"
-		styleName="PositionDisplay" >
+		backgroundColor="#000000"
+		backgroundAlpha="0.4"
+		borderStyle="outset"
+		borderThickness="1"
+		visible="{ showControls }"
+		styleName="PositionDisplay"
+		horizontalScrollPolicy="off"
+		verticalScrollPolicy="off" >
 		
 		<!-- I don't like it ... but it works: -->
 		<mx:Canvas id="innerPositionDisplay"
@@ -173,18 +175,11 @@
 				(Application.application.width * model.zoomLevel / 100) }"
 			top="{ positionDisplay.height * - model.displayPositionY / 
 				(Application.application.height * model.zoomLevel / 100) }"
-			backgroundAlpha="0.35"
+			backgroundAlpha="0.45"
 			backgroundColor="#ffffff"
 			visible="true"
 			styleName="InnerPositionDisplay" />
 		
 	</mx:Canvas>
-		
-	<mx:NumberFormatter id="zoomNumFormat" />
-	<mx:Label id="lblZoomLevel" 
-		text="Zoom: {zoomNumFormat.format(model.zoomLevel)} %" 
-		fontSize="{ this.width / 30 }"
-		fontWeight="bold" 
-		color="#FFFFFF"
-		visible="false" />
+	
 </mx:Canvas>

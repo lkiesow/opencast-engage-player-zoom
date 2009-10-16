@@ -6,13 +6,13 @@ X adjust videodisplay to window while zooming
 X create "default zoom" button
 X create an "where am I" window
 X Skin "default zoom" button
+X don't stop video while zooming
+X smooth video
 
 - zoom to cursor position
-- don't stop video while zooming
 - add mac mousewheel support
-- smooth video
 
 - use ajax bridge
 - throw out all start/stop buttons
-- remove dark overlay
+- completely remove dark overlay ?
 - create zoom-buttons outside
