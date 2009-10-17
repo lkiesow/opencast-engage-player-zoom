@@ -24,7 +24,6 @@
 	verticalScrollPolicy="off"
 	backgroundColor="#000000"
 	preinitialize="{ onPreinitialize(); }"
-	creationComplete="{ onCreationComplete(); }"
 	addedToStage="onAddedToStage()"
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*"
 	viewSourceURL="srcview/index.html"
@@ -48,12 +47,6 @@
 			private function onPreinitialize(): void {
 				Swiz.getInstance().loadBeans( [VideodisplayBean ] );
 				Swiz.autowire(this);
-			}
-			
-			private function onCreationComplete(): void {
-			
-// remove this
-			
 			}
 			
 			public function play(): void {

@@ -1,0 +1,109 @@
+%!PS-Adobe-3.0 
+%%Creator: Adobe Illustrator(r) 6.0
+%%For: (Macromedia Flash) ()
+%%Title: (E:\Programme\xampplite\htdocs\VirtUOS\opencast-engage-player-zoom\src\main\flex\Videodisplay\style\btn_up.ai)
+%%CreationDate: (10/17/09) (14:24:43)
+%%BoundingBox: 0 0 36 36
+%%HiResBoundingBox: 0.0 0.0 36.0 36.0
+%%DocumentProcessColors: Cyan Magenta Yellow Black
+%%DocumentNeededResources: procset Adobe_level2_AI5 1.0 0
+%%+ procset Adobe_screens_AI5 1.0 0
+%%+ procset Adobe_typography_AI5 1.0 0
+%%+ procset Adobe_blend_AI5 1.0 0
+%%+ procset Adobe_Illustrator_AI6_vars Adobe_Illustrator_AI6
+%%+ procset Adobe_Illustrator_AI5 1.0 0
+%AI5_FileFormat 2.0
+%AI3_ColorUsage: Color
+%AI3_TemplateBox: 306 396 306 396
+%AI3_TileBox: 17 18 18 18
+%AI3_DocumentPreview: None
+%%EndComments
+%%BeginProlog
+%%IncludeResource: procset Adobe_level2_AI5 1.0 0
+%%IncludeResource: procset Adobe_screens_AI5 1.0 0
+%%IncludeResource: procset Adobe_typography_AI5 1.0 0
+%%IncludeResource: procset Adobe_blend_AI5 1.0 0
+%%IncludeResource: procset Adobe_Illustrator_AI6_vars Adobe_Illustrator_AI6
+%%IncludeResource: procset Adobe_Illustrator_AI5 1.0 0
+%%EndProlog
+%%BeginSetup
+Adobe_level2_AI5 /initialize get exec
+Adobe_screens_AI5 /initialize get exec
+Adobe_Illustrator_AI5_vars Adobe_Illustrator_AI5 Adobe_typography_AI5 /initialize get exec
+Adobe_Illustrator_AI5_vars Adobe_Illustrator_AI5 Adobe_blend_AI5 /initialize get exec
+Adobe_ColorImage_AI6 /initialize get exec
+Adobe_Illustrator_AI5 /initialize get exec
+1 Bn
+%AI5_BeginGradient: (blend 1)
+(blend 1) 0 2 Bd
+[
+ 0.000 0.004 0.008 0.455 1 50 100.000 %_Bs
+ 0.000 0.000 0.000 0.008 1 50 22.353 %_Bs
+BD
+%AI5_EndGradient
+%%EndSetup
+u
+U
+u
+u
+u
+*u
+35.6 21.9 m
+34.9 25.3 33.3 28.2 30.8 30.8 C
+27.2 34.3 22.9 36.0 18.0 36.0 C
+15.6 35.9 L
+13.2 35.5 11.0 34.8 8.9 33.6 C
+7.9 33.0 6.8 32.3 5.9 31.4 C
+5.3 30.8 L
+2.3 27.8 0.6 24.3 0.1 20.3 C
+0.1 19.5 0.0 18.8 0.0 18.0 C
+0.0 16.6 0.1 15.1 0.5 13.8 C
+1.2 10.6 2.8 7.7 5.3 5.3 C
+8.9 2.4 L
+11.7 0.8 14.7 0.0 18.0 0.0 C
+22.9 0.0 27.2 1.8 30.8 5.3 C
+33.3 7.8 34.9 10.8 35.6 14.1 C
+35.9 15.3 36.0 16.6 36.0 18.0 C
+36.0 19.4 35.9 20.7 35.6 21.9 C
+Bb
+0 0 0 0 Bh
+1 (blend 1) -819.2 0.0 0 1638.4 0.0000 0.0220 -0.0220 0.0000 4135.600 4609.800 Bg
+f
+0 BB
+*U
+[]0 d
+0.000 0.004 0.004 0.655 K
+1 j
+1 J
+0.000000 w
+30.8 30.8 m
+27.2 34.3 22.9 36.0 18.0 36.0 C
+15.6 35.9 L
+13.2 35.5 11.0 34.8 8.9 33.6 C
+7.9 33.0 6.8 32.3 5.9 31.4 C
+5.3 30.8 L
+2.3 27.8 0.6 24.3 0.1 20.3 C
+0.1 19.5 0.0 18.8 0.0 18.0 C
+0.0 16.6 0.1 15.1 0.5 13.8 C
+1.2 10.6 2.8 7.7 5.3 5.3 C
+8.9 2.4 L
+11.7 0.8 14.7 0.0 18.0 0.0 C
+22.9 0.0 27.2 1.8 30.8 5.3 C
+33.3 7.8 34.9 10.8 35.6 14.1 C
+35.9 15.3 36.0 16.6 36.0 18.0 C
+36.0 19.4 35.9 20.7 35.6 21.9 C
+34.9 25.3 33.3 28.2 30.8 30.8 C
+S
+U
+U
+U
+%%PageTrailer
+gsave annotatepage grestore showpage
+%%Trailer
+Adobe_Illustrator_AI5 /terminate get exec
+Adobe_ColorImage_AI6 /terminate get exec
+Adobe_blend_AI5 /terminate get exec
+Adobe_typography_AI5 /terminate get exec
+Adobe_screens_AI5 /terminate get exec
+%Adobe_level2_AI5 /terminate get exec
+%%EOF

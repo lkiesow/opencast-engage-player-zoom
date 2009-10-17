@@ -8,9 +8,11 @@ X create an "where am I" window
 X Skin "default zoom" button
 X don't stop video while zooming
 X smooth video
+X fullscreen mode
 
 - zoom to cursor position
 - add mac mousewheel support
+- fade out controls
 
 - use ajax bridge
 - throw out all start/stop buttons

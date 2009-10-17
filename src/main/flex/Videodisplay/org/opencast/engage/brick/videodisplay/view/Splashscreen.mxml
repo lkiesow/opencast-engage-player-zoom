@@ -11,6 +11,7 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
 			import org.openvideoplayer.display.MediaPlayerSprite;
 			import mx.controls.Alert;
 			import org.openvideoplayer.media.MediaElement;
@@ -40,6 +41,9 @@
 			[Autowire(bean="dragController")]
 			public var dragController: DragController;
 			
+			[Autowire(bean="fullScreenController")]
+			public var fullScreenController: FullScreenController;
+			
 			private function playPauseClick(evt: MouseEvent): void {
 				
 				// Videosize:
@@ -51,8 +55,7 @@
 				} else {
 					playPauseButton.styleName = 'Pause';
 					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));				
-				} 
-				//showControls = true;				
+				} 			
 			
 			}
 
@@ -145,6 +148,15 @@
 				styleName="ZoomIn"
 				buttonMode="true" 
 				toolTip="Increases zoomlevel by 5 (is now at { model.zoomLevel }%)"/>
+				
+			<mx:Button id="fullScreenButton"
+				click="{ fullScreenController.toggleFullScreen(); }"
+				width="{ this.width / buttonSizeFactor }"
+				height="{ this.width / buttonSizeFactor }"
+				styleName="FullScreen"
+				buttonMode="true" 
+				toolTip="Toggle fullscreen mode"/>
+				
 						
 		</mx:HBox>
 		

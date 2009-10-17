@@ -3,6 +3,7 @@ package org.opencast.engage.brick.videodisplay.control {
 	import flash.geom.Point;
 	
 	import mx.core.Application;
+	import mx.managers.ICursorManager;
 	
 	import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
 	import org.swizframework.controller.AbstractController;
@@ -23,7 +24,7 @@ package org.opencast.engage.brick.videodisplay.control {
 			dragStartPos = new Point(mousePosX, mousePosY);
 			dispStartPos = new Point(model.displayPositionX, model.displayPositionY);
 			draggingDisplay = true;
-		
+					
 		}
 		
 		public function dragDisplay( mousePosX: Number, mousePosY: Number ): void {

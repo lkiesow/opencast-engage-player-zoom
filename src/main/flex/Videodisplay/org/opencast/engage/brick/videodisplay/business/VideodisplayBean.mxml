@@ -9,8 +9,9 @@
 	
 	<model:VideodisplayModel id="videodisplayModel"/>
 	
-	<control:VideodisplayController id="videodisplayController"/>
-	<control:ZoomController id="zoomController"/>
-	<control:DragController id="dragController"/>
+	<control:VideodisplayController id="videodisplayController" />
+	<control:ZoomController         id="zoomController"         />
+	<control:DragController         id="dragController"         />
+	<control:FullScreenController   id="fullScreenController"   />
 	
 </BeanLoader>

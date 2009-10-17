@@ -28,7 +28,7 @@ package org.opencast.engage.brick.videodisplay.control
 		
 		}
 		
-		private function adjustDisplayPos(): void {
+		public function adjustDisplayPos(): void {
 		
 			var dispWidth : int = Application.application.width  * model.zoomLevel / 100;
 			var dispHeight: int = Application.application.height * model.zoomLevel / 100;
