@@ -46,6 +46,20 @@ Button.DefaultZoom
   selectedDisabledSkin: Embed(source='skin_defaultzoom_up.swf');
 }
 
+Button.VideoSizeZoom
+{
+  font-size: 0;
+
+  upSkin: Embed(source='skin_videosize_up.swf');
+  overSkin: Embed(source='skin_videosize_up.swf');
+  downSkin: Embed(source='skin_videosize_down.swf');
+  disabledSkin: Embed(source='skin_videosize_up.swf');
+  selectedUpSkin: Embed(source='skin_videosize_up.swf');
+  selectedOverSkin: Embed(source='skin_videosize_up.swf');
+  selectedDownSkin: Embed(source='skin_videosize_up.swf');
+  selectedDisabledSkin: Embed(source='skin_videosize_up.swf');
+}
+
 Button.ZoomIn
 {
   font-size: 0;

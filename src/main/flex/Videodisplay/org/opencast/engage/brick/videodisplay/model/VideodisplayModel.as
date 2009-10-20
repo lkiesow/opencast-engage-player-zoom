@@ -2,6 +2,7 @@ package org.opencast.engage.brick.videodisplay.model
 {
 	import com.adobe.strobe.players.MediaPlayerWrapper;
 	
+	import flash.media.Video;
 	import flash.utils.Timer;
 	
 	import org.opencast.engage.brick.videodisplay.state.PlayerState;
@@ -19,6 +20,9 @@ package org.opencast.engage.brick.videodisplay.model
 		public var controlHideTimer: Timer = new Timer(5000, 1);
 		public var showControls: Boolean = false;
 		
+		
+		// points to the displayed video after initialization
+		public var video: Video = null;
 		public var player : MediaPlayerWrapper;
 		public var currentDuration : Number = 0;
 		public var currentPlayhead : Number = 0;

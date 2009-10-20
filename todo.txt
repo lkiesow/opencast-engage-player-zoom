@@ -9,10 +9,11 @@ X Skin "default zoom" button
 X don't stop video while zooming
 X smooth video
 X fullscreen mode
+X hide controls in fullscreen mode (after 5 sec)
+X Add fullscreen scrubber
 
 - zoom to cursor position
 - add mac mousewheel support
-- fade out controls
 
 - use ajax bridge
 - throw out all start/stop buttons

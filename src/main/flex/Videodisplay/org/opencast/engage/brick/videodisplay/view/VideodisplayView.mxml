@@ -97,11 +97,16 @@
 				
 				wrapper.element = media;
 			
-				// Enable smoothing
+				// try to find video object
 				if ( (wrapper.numChildren > 0) && (wrapper.getChildAt(0) is MediaPlayerSprite) ) {
 					var sprite: MediaPlayerSprite = wrapper.getChildAt(0) as MediaPlayerSprite;
 					if ( (sprite.numChildren > 0) && (sprite.getChildAt(0) is Video) )
-						Video(sprite.getChildAt(0)).smoothing = true;
+						
+						// store video in model
+						model.video = Video(sprite.getChildAt(0));
+						
+						// Enable smoothing
+						model.video.smoothing = true;
 				}
 			
 			}
