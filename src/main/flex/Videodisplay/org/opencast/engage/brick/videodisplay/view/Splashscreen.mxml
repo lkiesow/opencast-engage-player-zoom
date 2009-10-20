@@ -2,11 +2,11 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
 	backgroundAlpha="1.0"
 	currentState="{ model.currentPlayerState }"	
-	rollOver="{ showControls = true; }"
-	rollOut="showControls = false; dragController.stopDrag(event.stageX, event.stageY);"
+	rollOver="{ model.showControls = true; }"
+	rollOut="model.showControls = false; dragController.stopDrag(event.stageX, event.stageY);"
 	mouseWheel="zoomController.changeZoomLevel(event.delta);"
 	mouseDown="dragController.startDrag(event.stageX, event.stageY);"
-	mouseMove="dragController.dragDisplay(event.stageX, event.stageY);"
+	mouseMove="onMouseMove(event);"
 	mouseUp="dragController.stopDrag(event.stageX, event.stageY);"
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
@@ -28,9 +28,6 @@
 			[Bindable] 
 			private var buttonSizeFactor        : int = 20;
 			
-			[Bindable]
-			private var showControls: Boolean = false;
-			
 			[Autowire]
 			[Bindable]
 			public var model:VideodisplayModel;
@@ -43,6 +40,18 @@
 			
 			[Autowire(bean="fullScreenController")]
 			public var fullScreenController: FullScreenController;
+			
+			private function onMouseMove(event: MouseEvent): void {
+				
+				dragController.dragDisplay(event.stageX, event.stageY);
+				
+				model.showControls = true;
+				if (Application.application.stage.displayState == StageDisplayState.FULL_SCREEN) {
+					model.controlHideTimer.reset();
+					model.controlHideTimer.start();
+				}
+				
+			}
 			
 			private function playPauseClick(evt: MouseEvent): void {
 				
@@ -112,7 +121,7 @@
 		backgroundAlpha="0.5" 
 		borderColor="#000000"
 		borderThickness="5"
-		visible="{ showControls || model.currentPlayerState == PlayerState.PAUSING }" >
+		visible="{ model.showControls || model.currentPlayerState == PlayerState.PAUSING }" >
 		<mx:HBox right="25" 
 			top="5"
 			bottom="5">
@@ -174,7 +183,7 @@
 		backgroundAlpha="0.4"
 		borderStyle="outset"
 		borderThickness="1"
-		visible="{ showControls }"
+		visible="{ model.showControls }"
 		styleName="PositionDisplay"
 		horizontalScrollPolicy="off"
 		verticalScrollPolicy="off" >

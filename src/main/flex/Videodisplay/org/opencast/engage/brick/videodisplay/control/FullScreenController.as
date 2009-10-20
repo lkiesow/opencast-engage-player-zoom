@@ -14,7 +14,7 @@ package org.opencast.engage.brick.videodisplay.control {
 
 		[Autowire]
 		[Bindable]
-		public var model:VideodisplayModel;
+		public var model: VideodisplayModel;
 			
 		[Autowire(bean="zoomController")]
 		public var zoomController: ZoomController;
@@ -31,6 +31,11 @@ package org.opencast.engage.brick.videodisplay.control {
 					default:
 						/* If not in full screen mode, switch to full screen mode. */
 						Application.application.stage.displayState = StageDisplayState.FULL_SCREEN;
+						model.controlHideTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
+							function TimerComplete(): void {
+								model.showControls = false;
+							});
+						model.controlHideTimer.start();
 						/*
 						var t: Timer = new Timer(5000, 1);
 						t.addEventListener(TimerEvent.TIMER_COMPLETE, 

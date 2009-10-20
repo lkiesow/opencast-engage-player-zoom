@@ -2,6 +2,8 @@ package org.opencast.engage.brick.videodisplay.model
 {
 	import com.adobe.strobe.players.MediaPlayerWrapper;
 	
+	import flash.utils.Timer;
+	
 	import org.opencast.engage.brick.videodisplay.state.PlayerState;
 	[Bindable]
 	public class VideodisplayModel
@@ -12,6 +14,10 @@ package org.opencast.engage.brick.videodisplay.model
 		// position of the bideo display
 		public var displayPositionX: Number = 0;
 		public var displayPositionY: Number = 0;
+		
+		// timer in control fo hiding the controls
+		public var controlHideTimer: Timer = new Timer(5000, 1);
+		public var showControls: Boolean = false;
 		
 		public var player : MediaPlayerWrapper;
 		public var currentDuration : Number = 0;
