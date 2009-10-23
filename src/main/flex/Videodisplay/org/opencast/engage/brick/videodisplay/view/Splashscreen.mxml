@@ -11,6 +11,7 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.VideoDisplay;
 			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
 			import org.openvideoplayer.display.MediaPlayerSprite;
 			import mx.controls.Alert;
@@ -40,7 +41,7 @@
 			
 			[Autowire(bean="fullScreenController")]
 			public var fullScreenController: FullScreenController;
-			
+						
 			private function onMouseMove(event: MouseEvent): void {
 				
 				dragController.dragDisplay(event.stageX, event.stageY);
@@ -118,7 +119,9 @@
 		backgroundAlpha="0.5" 
 		borderColor="#000000"
 		borderThickness="5"
-		visible="{ model.showControls || model.currentPlayerState == PlayerState.PAUSING }" >
+		visible="{ model.showControls || model.currentPlayerState == PlayerState.PAUSING }"
+		horizontalScrollPolicy="off"
+		verticalScrollPolicy="off" >
 		
 		<mx:HBox
 			verticalAlign="middle"
@@ -126,7 +129,9 @@
 			right="25"
 			top="0"
 			bottom="0" 
-			horizontalGap="25">
+			horizontalGap="25"
+			horizontalScrollPolicy="off"
+		verticalScrollPolicy="off" >
 		
 		<mx:Canvas id="fullscreenScrubber" 
 			left="25" 
@@ -137,6 +142,8 @@
 			borderColor="silver"
 			borderThickness="1"
 			borderStyle="solid"
+			horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
 			visible="{ Application.application.stage.displayState == StageDisplayState.FULL_SCREEN }"
 			mouseDown="model.player.seek(model.currentDuration * (event.localX / fullscreenScrubber.width));"
 			mouseMove="if (event.buttonDown) model.player.seek(model.currentDuration * (event.localX / fullscreenScrubber.width));" >
@@ -147,7 +154,9 @@
 				bottom="0"
 				width="{ model.currentPlayhead / model.currentDuration * fullscreenScrubber.width }" 
 				backgroundColor="#FFFFFF"
-				backgroundAlpha="0.75" />
+				backgroundAlpha="0.75"
+				horizontalScrollPolicy="off"
+		verticalScrollPolicy="off" />
 			<!--
 			<mx:Label text="{ int(model.currentPlayhead / 60).toString() }:
 			{ int(model.currentPlayhead % 60).toString() } / 

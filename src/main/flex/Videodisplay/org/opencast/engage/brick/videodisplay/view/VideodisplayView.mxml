@@ -6,6 +6,7 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import mx.events.DragEvent;
 			import org.openvideoplayer.display.MediaPlayerSprite;
 			import mx.controls.Alert;
 			import org.openvideoplayer.utils.URL;
@@ -95,20 +96,34 @@
 				wrapper.addEventListener(PlayheadChangeEvent.PLAYHEAD_CHANGE, playHeadChange);
 				wrapper.addEventListener(DurationChangeEvent.DURATION_CHANGE, durationChange);
 				
-				wrapper.element = media;
+				wrapper.element = media;				
 			
 				// try to find video object
 				if ( (wrapper.numChildren > 0) && (wrapper.getChildAt(0) is MediaPlayerSprite) ) {
-					var sprite: MediaPlayerSprite = wrapper.getChildAt(0) as MediaPlayerSprite;
-					if ( (sprite.numChildren > 0) && (sprite.getChildAt(0) is Video) )
-						
-						// store video in model
-						model.video = Video(sprite.getChildAt(0));
-						
-						// Enable smoothing
-						model.video.smoothing = true;
+										
+					var sprite: MediaPlayerSprite = model.player.getChildAt(0) as MediaPlayerSprite;
+					
+					if ( (sprite.numChildren > 0) && (sprite.getChildAt(0) is Video) ) {
+						onAddVideo();
+					} else {
+						sprite.addEventListener(Event.ADDED, onAddVideo);
+					}
 				}
 			
+			}
+			
+			private function onAddVideo(): void {
+					
+				var sprite: MediaPlayerSprite = model.player.getChildAt(0) as MediaPlayerSprite;
+					
+				if ( (sprite.numChildren > 0) && (sprite.getChildAt(0) is Video) ) {
+					
+					// store video in model
+					model.video = Video(sprite.getChildAt(0));
+					
+					// Enable smoothing
+					model.video.smoothing = true;
+				}
 			}
 			
 			private function autoPlayOff(event:PlayheadChangeEvent): void {
