@@ -26,7 +26,6 @@
 	preinitialize="{ onPreinitialize(); }"
 	addedToStage="onAddedToStage()"
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*"
-	viewSourceURL="srcview/index.html"
 	xmlns:ns1="bridge.*">
 	<mx:Style source="style/standard_videodisplay.css"/>
 	<mx:Script>
