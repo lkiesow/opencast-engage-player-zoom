@@ -75,17 +75,16 @@
       Ergebnis = window.location.search.match(/video=[^&$]+$/);
       if (Ergebnis) {
         videourl = Ergebnis[0].replace(/^video=/, '');
-        
+
         document.writeln('<object id="oc_Videodisplay" type="application/x-shockwave-flash"');
-        document.writeln('data="Videodisplay.swf?bridgeName=b_Videodisplay&amp;video_url=' + videourl
-          + '&amp;autoplay=false&amp;captions=http://vm069.rz.uos.de:8080/examples/car.dfxp.xml"');
+        document.writeln('data="Videodisplay.swf"');
         document.writeln('style="width: 900px; height: 507px;">');
 	      document.writeln('  <param name="allowScriptAccess" value="always" />');
 	      document.writeln('  <param name="allowFullScreen" value="true" />');
-        document.writeln('  <param name="movie" value="Videodisplay.swf?bridgeName=b_Videodisplay&amp;video_url=' + videourl
-          + '&amp;autoplay=false&amp;captions=http://vm069.rz.uos.de:8080/examples/car.dfxp.xml" />');
+        document.writeln('  <param name="movie" value="Videodisplay.swf" />');
 			  document.writeln('  <param name="quality" value="high" />');
 			  document.writeln('  <param name="bgcolor" value="#000000" />');
+			  document.writeln('  <param name="flashvars" value="bridgeName=b_Videodisplay&amp;video_url=' + videourl + '&amp;autoplay=false" />');
         document.writeln('</object>');
       }
     }
@@ -98,7 +97,7 @@
 <div style="width: 910px; margin-left: auto; margin-right: auto;">
 <div style="height: 600px; position: absolute; margin-top: -300px; top: 50%;">
 <div style="margin: 10px; margin-bottom: 0px;">
-    <script type="text/javascript">embed_video();</script>
+  <script type="text/javascript">embed_video();</script>
 </div>
 
 <div id="slider" class="ui-slider"
