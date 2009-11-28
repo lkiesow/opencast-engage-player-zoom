@@ -3,36 +3,34 @@
 	height="100%"
 	xmlns:players="com.adobe.strobe.players.*"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
+	xmlns:view="org.opencast.engage.brick.videodisplay.view.*" >
 	<mx:Script>
 		<![CDATA[
+			import mx.events.ResizeEvent;
+			import org.osmf.media.URLResource;
+			import org.osmf.utils.URL;
+			import org.osmf.net.dynamicstreaming.DynamicStreamingResource;
+			import org.osmf.net.NetLoader;
+			import org.osmf.display.ScaleMode;
+			import org.osmf.traits.MediaTraitType;
+			import org.osmf.traits.LoadState;
+			import org.osmf.video.VideoElement;
+			import org.osmf.display.MediaPlayerSprite;
+			import org.osmf.net.NetLoadedContext;
+			import org.osmf.traits.ILoadable;
+			import org.osmf.events.PlayheadChangeEvent;
+			import org.osmf.media.MediaElement;
+			import org.osmf.events.LoadableStateChangeEvent;
+			import org.osmf.events.DurationChangeEvent;
+			import org.osmf.events.DimensionChangeEvent;
 			import mx.events.DragEvent;
-			import org.openvideoplayer.display.MediaPlayerSprite;
 			import mx.controls.Alert;
-			import org.openvideoplayer.utils.URL;
-			import org.openvideoplayer.net.NetLoadedContext;
-			import org.openvideoplayer.events.MediaPlayerCapabilityChangeEvent;
-			import org.openvideoplayer.events.BufferTimeChangeEvent;
-			import org.openvideoplayer.events.BufferingChangeEvent;
 			import org.swizframework.Swiz;
 			import org.opencast.engage.brick.videodisplay.control.event.VideoControlEvent;
 			import org.opencast.engage.brick.videodisplay.control.util.TimeCode;
 			import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
-			import org.openvideoplayer.events.DurationChangeEvent;
 			import mx.core.Application;
-			import org.openvideoplayer.display.ScaleMode;
-			import org.openvideoplayer.events.PlayheadChangeEvent;
-			import org.openvideoplayer.events.DimensionChangeEvent;
-			import org.openvideoplayer.traits.LoadState;
-			import org.openvideoplayer.events.LoadableStateChangeEvent;
-			import org.openvideoplayer.traits.MediaTraitType;
-			import org.openvideoplayer.traits.ILoadable;
-			import org.openvideoplayer.media.MediaElement;
-			
 			import mx.events.FlexEvent;
-			import org.openvideoplayer.net.NetLoader;
-			import org.openvideoplayer.media.URLResource;
-			import org.openvideoplayer.video.VideoElement;
 			
 			private static const REMOTE_PROGRESSIVE:String	  
 				=	"http://vs1.rz.uos.de/public/virtmm/test/Pechakucha-zoo_hd.mp4";
@@ -60,7 +58,7 @@
 				if (playerInitialized)
 					return;
 				playerInitialized = true;
-								
+												
 				model.player = this.wrapper;
 				t = new TimeCode();
 				
@@ -158,6 +156,7 @@
         		var loadable: ILoadable = media.getTrait(MediaTraitType.LOADABLE) as ILoadable;
 				if (loadable) {
 					var context:NetLoadedContext = NetLoadedContext(loadable.loadedContext);
+					model.loadingProgress = context.stream.bytesLoaded / context.stream.bytesTotal;
 					try {
 						ExternalInterface.call('setProgress', 
 							context.stream.bytesLoaded / context.stream.bytesTotal * 100);

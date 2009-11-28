@@ -18,8 +18,9 @@ package org.opencast.engage.brick.videodisplay.control
 		[Autowire]
 		public var model : VideodisplayModel;
 		/**  */
-		[Autowire]
-		public var delegate : VideodisplayDelegate;
+		// Never used:
+		// [Autowire]
+		// public var delegate : VideodisplayDelegate;
 		/** Constructor */
 		public function VideodisplayController()
 		{

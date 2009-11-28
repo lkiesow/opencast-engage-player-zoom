@@ -37,7 +37,7 @@ package org.opencast.engage.brick.videodisplay.control
 			// set zoomlevel (min. 100%)
 			model.zoomLevel = value < 100 ? 100 : value; 
 			
-			// zomm in center is position is not set
+			// zoom in center is position is not set
 			if (pos_x == -1 || pos_y == -1) {
 				adjustDisplayPos(
 					- Application.application.width * (oldZoomLevel - model.zoomLevel) / 200,

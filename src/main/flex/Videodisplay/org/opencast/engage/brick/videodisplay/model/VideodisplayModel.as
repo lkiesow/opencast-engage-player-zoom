@@ -7,8 +7,13 @@ package org.opencast.engage.brick.videodisplay.model
 	
 	import org.opencast.engage.brick.videodisplay.state.PlayerState;
 	[Bindable]
-	public class VideodisplayModel
-	{
+	public class VideodisplayModel {
+		
+		// session-id for communication with BlazeDS
+		public var session_id: int;
+		// whether or not to communicate with the OZPEventServer
+		public var userEventServer: Boolean;
+		
 		// zoomlevel of the video display
 		public var zoomLevel: Number = 100;
 		
@@ -16,12 +21,27 @@ package org.opencast.engage.brick.videodisplay.model
 		public var displayPositionX: Number = 0;
 		public var displayPositionY: Number = 0;
 		
-		// timer in control fo hiding the controls
+		/**
+		 * Timer in control fo hiding the controls.
+		 */		
 		public var controlHideTimer: Timer = new Timer(5000, 1);
+		
+		/**
+		 * Whether or not the controls should be visible.
+		 */
 		public var showControls: Boolean = false;
 		
+		/**
+		 * The download progress of the current video.
+		 * A value between 0 (nothing loaded) and 1 (download complete).
+		 */
+		public var loadingProgress: Number = 0;
 		
-		// points to the displayed video after initialization
+		
+		
+		/**
+		 * Points to the displayed video after initialization. 
+		 */
 		public var video: Video = null;
 		public var player : MediaPlayerWrapper;
 		public var currentDuration : Number = 0;

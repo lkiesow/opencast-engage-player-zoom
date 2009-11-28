@@ -1,0 +1,10 @@
+  <object id="oc_Videodisplay" type="application/x-shockwave-flash"
+    data="Videodisplay.swf"
+    style="width: 360px; height: 206px;">
+      <param name="allowScriptAccess" value="always" />
+      <param name="allowFullScreen" value="true" />
+      <param name="movie" value="Videodisplay.swf" />
+      <param name="quality" value="high" />
+      <param name="bgcolor" value="#000000" />
+      <param name="flashvars" value="bridgeName=b_Videodisplay&amp;video_url=(#### INSERT VIDEOURL HERE ####)&amp;autoplay=false" />
+  </object>

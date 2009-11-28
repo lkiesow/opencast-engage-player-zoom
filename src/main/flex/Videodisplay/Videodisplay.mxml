@@ -30,7 +30,6 @@
 	<mx:Style source="style/standard_videodisplay.css"/>
 	<mx:Script>
 		<![CDATA[
-			import org.openvideoplayer.display.MediaPlayerSprite;
 			import mx.controls.Alert;
 			import org.opencast.engage.brick.videodisplay.control.event.SetVolumeEvent;
 			import org.opencast.engage.brick.videodisplay.control.event.VideoControlEvent;

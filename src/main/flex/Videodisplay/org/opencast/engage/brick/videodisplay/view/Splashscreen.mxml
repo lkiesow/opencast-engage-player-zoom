@@ -11,11 +11,10 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import org.osmf.display.ScaleMode;
+			import mx.events.ResizeEvent;
 			import mx.controls.VideoDisplay;
 			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
-			import org.openvideoplayer.display.MediaPlayerSprite;
-			import mx.controls.Alert;
-			import org.openvideoplayer.media.MediaElement;
 			import mx.core.Application;
 			import org.opencast.engage.brick.videodisplay.control.DragController;
 			import org.opencast.engage.brick.videodisplay.control.ZoomController;
@@ -24,6 +23,7 @@
 			import org.opencast.engage.brick.videodisplay.control.event.VideoControlEvent;
 			import org.swizframework.Swiz;
 			import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
+			import org.opencast.engage.brick.videodisplay.control.util.TimeCode;
 			
 			// size and position of buttons, ...
 			[Bindable] 
@@ -41,7 +41,7 @@
 			
 			[Autowire(bean="fullScreenController")]
 			public var fullScreenController: FullScreenController;
-						
+			
 			private function onMouseMove(event: MouseEvent): void {
 				
 				dragController.dragDisplay(event.stageX, event.stageY);
@@ -112,42 +112,54 @@
 		y="0">
 	</mx:Canvas>
 	
-	<mx:Canvas id="controlBar"
+
+		
+	<mx:HBox id="controlBar"
 		width="100%"
+		height="{ Math.sqrt(this.height) * 2 }"
 		bottom="5"
 		backgroundColor="#000000"
 		backgroundAlpha="0.5" 
 		borderColor="#000000"
-		borderThickness="5"
+		verticalAlign="middle"
+		horizontalAlign="center"
 		visible="{ model.showControls || model.currentPlayerState == PlayerState.PAUSING }"
 		horizontalScrollPolicy="off"
-		verticalScrollPolicy="off" >
-		
-		<mx:HBox
-			verticalAlign="middle"
-			left="25"
-			right="25"
-			top="0"
-			bottom="0" 
-			horizontalGap="25"
-			horizontalScrollPolicy="off"
-			verticalScrollPolicy="off" >
+		verticalScrollPolicy="off"
+		horizontalGap="20" 
+		paddingLeft="25" 
+		paddingRight="25" >
 		
 			<mx:Canvas id="fullscreenScrubber" 
-				left="25" 
+				left="25"
+				height="{ controlBar.height * 0.6 }"
 				width="100%"
-				height="60%"
 				backgroundColor="#000000"
-				backgroundAlpha="0.5"
+				backgroundAlpha="0.0"
 				borderColor="silver"
 				borderThickness="1"
 				borderStyle="solid"
 				horizontalScrollPolicy="off"
 				verticalScrollPolicy="off"
 				visible="{ Application.application.stage.displayState == StageDisplayState.FULL_SCREEN }"
-				mouseDown="model.player.seek(model.currentDuration * (event.localX / fullscreenScrubber.width));"
-				mouseMove="if (event.buttonDown) model.player.seek(model.currentDuration * (event.localX / fullscreenScrubber.width));" >
-									
+				mouseDown="{ model.player.seek(model.currentDuration 
+					* (fullscreenScrubber.globalToLocal(new Point(event.stageX, event.stageY)).x / fullscreenScrubber.width)); }"
+				mouseMove="{ if (event.buttonDown) 
+						model.player.seek(model.currentDuration 
+						* (fullscreenScrubber.globalToLocal(new Point(event.stageX, event.stageY)).x / fullscreenScrubber.width)); }" >
+					
+				<!-- Shows download progress -->	
+				<mx:Canvas
+					left="0"
+					top="0"
+					bottom="0"
+					width="{ model.loadingProgress * fullscreenScrubber.width }" 
+					backgroundColor="#000000"
+					backgroundAlpha="0.5"
+					horizontalScrollPolicy="off"
+					verticalScrollPolicy="off" />
+					
+				<!-- Shows current videoposition -->		
 				<mx:Canvas
 					left="0"
 					top="0"
@@ -157,35 +169,37 @@
 					backgroundAlpha="0.75"
 					horizontalScrollPolicy="off"
 					verticalScrollPolicy="off" />
-					
-				<!--
-				<mx:Label text="{ int(model.currentPlayhead / 60).toString() }:
-				{ int(model.currentPlayhead % 60).toString() } / 
-				{ int(model.currentDuration / 60).toString() }:
-				{ int(model.currentDuration % 60).toString() }" />
-				-->
+				
+				<mx:Label id="timeLabel" 
+					text="{ (new TimeCode).getTC(model.currentPlayhead) + ' / '
+					+ (new TimeCode).getTC(model.currentDuration) }"
+					top="{ (fullscreenScrubber.height - timeLabel.height) / 2 }"
+					left="{ (fullscreenScrubber.width - timeLabel.width) / 2 }"
+					fontWeight="bold"
+					fontSize="{ Math.sqrt(this.height) / 2 }"
+					color="#777777"
+					mouseDown="{  }" />
+				
 			
 			</mx:Canvas>
 					
 			<mx:HBox id="buttonContainer"
 				right="25" 
-				top="5"
-				bottom="5"
-				height="{ this.width / buttonSizeFactor }"
+				height="{ controlBar.height * 0.8 }"
 				verticalAlign="middle">
 			
 				<mx:Button id="playPauseButton"
 					click="playPauseClick(event);"
+					height="{ buttonContainer.height }"
 					width="{ playPauseButton.height }"
-					height="80%"
 					styleName="Play"
 					buttonMode="true" 
 					toolTip="Start / Stop the video playback" />
 					
 				<mx:Button id="defaultZoomButton"
 					click="zoomController.setZoomLevel(100);"
+					height="{ buttonContainer.height }"
 					width="{ defaultZoomButton.height }"
-					height="80%"
 					styleName="DefaultZoom"
 					buttonMode="true" 
 					toolTip="Fit video in window" />
@@ -194,32 +208,32 @@
 					click="zoomController.setZoomLevel(
 						Math.max(model.video.videoWidth * 100 / Application.application.width,
 							model.video.videoHeight * 100 / Application.application.height));"
+					height="{ buttonContainer.height }"
 					width="{ videoSizeZoomButton.height }"
-					height="80%"
 					styleName="VideoSizeZoom"
 					buttonMode="true" 
 					toolTip="Zoom to native video size" />
 					
 				<mx:Button id="zoomOutButton"
 					click="zoomController.changeZoomLevel(-5);"
+					height="{ buttonContainer.height }"
 					width="{ zoomOutButton.height }"
-					height="80%"
 					styleName="ZoomOut"
 					buttonMode="true"
 					toolTip="Decreases zoomlevel" />
 					
 				<mx:Button id="zoomInButton"
 					click="zoomController.changeZoomLevel(5);"
+					height="{ buttonContainer.height }"
 					width="{ zoomInButton.height }"
-					height="80%"
 					styleName="ZoomIn"
 					buttonMode="true" 
 					toolTip="Increases zoomlevel"/>
 					
 				<mx:Button id="fullScreenButton"
 					click="{ fullScreenController.toggleFullScreen(); }"
+					height="{ buttonContainer.height }"
 					width="{ fullScreenButton.height }"
-					height="80%"
 					styleName="FullScreen"
 					buttonMode="true" 
 					toolTip="Toggle fullscreen mode"/>
@@ -228,21 +242,20 @@
 				
 		</mx:HBox>
 		
-	</mx:Canvas>
 		
 	<!-- Overlay in the upper right corner
 		which showes the current position -->
 		
 	<mx:Canvas id="positionDisplay"
-		top="{ this.width / 50 }"
-		right="{ this.width / 25 }"
+		top="{ Math.sqrt(this.height) }"
+		right="{ Math.sqrt(this.height) }"
 		width="{ this.width / 5 }"
 		height="{ this.height / 5 }"
 		backgroundColor="#000000"
 		backgroundAlpha="0.4"
-		borderStyle="outset"
+		borderStyle="solid"
 		borderThickness="1"
-		visible="{ model.showControls }"
+		visible="{ !( (!model.showControls) || (model.zoomLevel == 100) ) }"
 		styleName="PositionDisplay"
 		horizontalScrollPolicy="off"
 		verticalScrollPolicy="off" >

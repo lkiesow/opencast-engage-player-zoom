@@ -22,26 +22,39 @@
 package com.adobe.strobe.players
 {
 	import flash.events.Event;
-	import flash.events.ProgressEvent;
+	
 	import mx.core.UIComponent;
-	import org.openvideoplayer.display.MediaPlayerSprite;
-	import org.openvideoplayer.display.ScaleMode;
-	import org.openvideoplayer.events. * ;
-	import org.openvideoplayer.media.MediaElement;
-	import org.openvideoplayer.media.MediaPlayer;
-	import org.openvideoplayer.media.MediaPlayerState;
-	import org.openvideoplayer.traits. * ;
-	import org.openvideoplayer.video. * ;
+	
+	import org.osmf.display.MediaPlayerSprite;
+	import org.osmf.display.ScaleMode;
+	import org.osmf.events.BufferTimeChangeEvent;
+	import org.osmf.events.BufferingChangeEvent;
+	import org.osmf.events.DimensionChangeEvent;
+	import org.osmf.events.DurationChangeEvent;
+	import org.osmf.events.LoadableStateChangeEvent;
+	import org.osmf.events.MediaPlayerCapabilityChangeEvent;
+	import org.osmf.events.MutedChangeEvent;
+	import org.osmf.events.PanChangeEvent;
+	import org.osmf.events.PausedChangeEvent;
+	import org.osmf.events.PlayheadChangeEvent;
+	import org.osmf.events.PlayingChangeEvent;
+	import org.osmf.events.SeekingChangeEvent;
+	import org.osmf.events.TraitEvent;
+	import org.osmf.events.ViewChangeEvent;
+	import org.osmf.events.VolumeChangeEvent;
+	import org.osmf.media.MediaElement;
+	import org.osmf.media.MediaPlayer;
+	import org.osmf.media.MediaPlayerState; ;
 	public class MediaPlayerWrapper extends UIComponent
 	{
 		public function set element(value : MediaElement) : void
 		{
-			mediaPlayer.source = value;
+			mediaPlayer.element = value;
 		}
 
 		public function get element() : MediaElement
 		{
-			return mediaPlayer.source;
+			return mediaPlayer.element;
 		}
 
 		/**
@@ -265,7 +278,7 @@ package com.adobe.strobe.players
 		{
 			if(playable)
 			{
-				return mediaPlayer.playhead;
+				return mediaPlayer.currentTime;
 			}
 
 			return 0;

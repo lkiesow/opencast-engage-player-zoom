@@ -5,9 +5,15 @@
 	xmlns:model="org.opencast.engage.brick.videodisplay.model.*"
 	xmlns:control="org.opencast.engage.brick.videodisplay.control.*">
 	
-	<business:VideodisplayDelegate id="videodisplayDelegate"/>
+	<business:UserEventDelegate id="userEventDelegate" />
+	<!--
+	Never used:
+	<business:VideodisplayDelegate id="videoDisplayDelegate" />
+	-->
 	
-	<model:VideodisplayModel id="videodisplayModel"/>
+	<mx:RemoteObject id="userEventRO" destination="ozp_eventserver" />
+	
+	<model:VideodisplayModel id="videodisplayModel" />
 	
 	<control:VideodisplayController id="videodisplayController" />
 	<control:ZoomController         id="zoomController"         />
