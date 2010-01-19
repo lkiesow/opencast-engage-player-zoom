@@ -528,7 +528,8 @@ package com.adobe.strobe.players
 			dispatchEvent(new MutedChangeEvent(mediaPlayer.muted));
 		}
 
-		private function get mediaPlayer() : MediaPlayer
+		[ChangeEvent('mediaPlayerChange')]
+		public function get mediaPlayer() : MediaPlayer
 		{
 			return _player.mediaPlayer;
 		}

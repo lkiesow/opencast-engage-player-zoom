@@ -30,6 +30,7 @@
 	<mx:Style source="style/standard_videodisplay.css"/>
 	<mx:Script>
 		<![CDATA[
+			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import mx.controls.Alert;
 			import org.opencast.engage.brick.videodisplay.control.event.SetVolumeEvent;
 			import org.opencast.engage.brick.videodisplay.control.event.VideoControlEvent;
@@ -112,7 +113,7 @@
 		horizontalScrollPolicy="off"
 		verticalScrollPolicy="off"
 		width="{ Application.application.width * model.zoomLevel / 100 }"
-		height="{ Application.application.height * model.zoomLevel / 100 }"/>
+		height="{ Application.application.height * model.zoomLevel / 100 }" />
 		
 	<view:Splashscreen id="splash"
 		width="100%"

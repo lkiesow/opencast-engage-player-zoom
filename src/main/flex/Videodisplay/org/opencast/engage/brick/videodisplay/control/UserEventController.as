@@ -37,5 +37,20 @@ package org.opencast.engage.brick.videodisplay.control {
 			
 		}
 		
+		public function dispatch_event(evt_type: String): void {
+			
+			model.
+			var evt: ozp_event = new ozp_event();
+			evt.session_id = session_id;
+			evt.event_type = evt_type;
+			evt.pos_x = mouseX;
+			evt.pos_y = mouseY;
+			evt.video_time = 42;
+			evt.zoomlevel = 100;
+			
+			ro.add_event(evt);
+			
+		}
+		
 	}
 }

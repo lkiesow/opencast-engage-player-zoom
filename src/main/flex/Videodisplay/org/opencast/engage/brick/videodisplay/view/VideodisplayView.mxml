@@ -6,6 +6,11 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*" >
 	<mx:Script>
 		<![CDATA[
+			import org.osmf.media.MediaPlayerState;
+			import org.opencast.engage.brick.videodisplay.state.PlayerState;
+			import org.osmf.events.BufferingChangeEvent;
+			import mx.events.StateChangeEvent;
+			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import mx.events.ResizeEvent;
 			import org.osmf.media.URLResource;
 			import org.osmf.utils.URL;
@@ -58,8 +63,18 @@
 				if (playerInitialized)
 					return;
 				playerInitialized = true;
-												
+								
+				// set splashscreen to pause-mode if necessary				
 				model.player = this.wrapper;
+				wrapper.mediaPlayer.addEventListener(
+					MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,
+					function(e: MediaPlayerStateChangeEvent): void {
+						if (e.newState == MediaPlayerState.PLAYING)
+							model.currentPlayerState = PlayerState.PLAYING
+						else
+							model.currentPlayerState = PlayerState.PAUSING;
+					});
+					
 				t = new TimeCode();
 				
 				bytesLodedTimer = new Timer(TIMER_INTERVAL_BYTES_LOADED);    

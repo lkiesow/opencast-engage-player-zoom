@@ -11,6 +11,8 @@
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import mx.controls.Alert;
 			import org.osmf.display.ScaleMode;
 			import mx.events.ResizeEvent;
 			import mx.controls.VideoDisplay;
@@ -55,12 +57,10 @@
 			}
 			
 			private function playPauseClick(evt: MouseEvent): void {
-												
-				if (this.currentState == PlayerState.PLAYING) {
-					playPauseButton.styleName = 'Play';
+																
+				if (currentState == PlayerState.PLAYING) {
 					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));
 				} else {
-					playPauseButton.styleName = 'Pause';
 					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));	
 				} 			
 			

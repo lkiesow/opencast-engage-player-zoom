@@ -36,9 +36,7 @@ package org.opencast.engage.brick.videodisplay.model
 		 * A value between 0 (nothing loaded) and 1 (download complete).
 		 */
 		public var loadingProgress: Number = 0;
-		
-		
-		
+				
 		/**
 		 * Points to the displayed video after initialization. 
 		 */

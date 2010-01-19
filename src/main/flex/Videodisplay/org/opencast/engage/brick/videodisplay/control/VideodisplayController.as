@@ -36,16 +36,13 @@ package org.opencast.engage.brick.videodisplay.control
 			{
 				case VideoControlEvent.PLAY : if( !model.player.playing)
 				model.player.play();
-				model.currentPlayerState = PlayerState.PLAYING;
 				break;
 				case VideoControlEvent.PAUSE : if(model.player.playing)
 				model.player.pause();
-				model.currentPlayerState = PlayerState.PAUSING;
 				break;
 				case VideoControlEvent.STOP : if(model.player.playing)
 				model.player.pause();
 				model.player.seek(0);
-				model.currentPlayerState = PlayerState.PAUSING;
 				break;
 			}
 		}
