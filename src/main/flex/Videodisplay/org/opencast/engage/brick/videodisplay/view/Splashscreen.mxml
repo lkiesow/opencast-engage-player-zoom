@@ -193,6 +193,7 @@
 					height="{ buttonContainer.height }"
 					width="{ playPauseButton.height }"
 					styleName="Play"
+					focusEnabled="false"
 					buttonMode="true" 
 					toolTip="Start / Stop the video playback" />
 					
@@ -201,6 +202,7 @@
 					height="{ buttonContainer.height }"
 					width="{ defaultZoomButton.height }"
 					styleName="DefaultZoom"
+					focusEnabled="false"
 					buttonMode="true" 
 					toolTip="Fit video in window" />
 					
@@ -211,6 +213,7 @@
 					height="{ buttonContainer.height }"
 					width="{ videoSizeZoomButton.height }"
 					styleName="VideoSizeZoom"
+					focusEnabled="false"
 					buttonMode="true" 
 					toolTip="Zoom to native video size" />
 					
@@ -219,6 +222,7 @@
 					height="{ buttonContainer.height }"
 					width="{ zoomOutButton.height }"
 					styleName="ZoomOut"
+					focusEnabled="false"
 					buttonMode="true"
 					toolTip="Decreases zoomlevel" />
 					
@@ -227,6 +231,7 @@
 					height="{ buttonContainer.height }"
 					width="{ zoomInButton.height }"
 					styleName="ZoomIn"
+					focusEnabled="false"
 					buttonMode="true" 
 					toolTip="Increases zoomlevel"/>
 					
@@ -235,6 +240,7 @@
 					height="{ buttonContainer.height }"
 					width="{ fullScreenButton.height }"
 					styleName="FullScreen"
+					focusEnabled="false"
 					buttonMode="true" 
 					toolTip="Toggle fullscreen mode"/>
 											

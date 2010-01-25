@@ -2,9 +2,8 @@ package org.opencast.engage.brick.videodisplay.control {
 	
 	import flash.display.StageDisplayState;
 	import flash.events.TimerEvent;
-	import flash.utils.Timer;
+	import flash.ui.Keyboard;
 	
-	import mx.controls.Alert;
 	import mx.core.Application;
 	
 	import org.opencast.engage.brick.videodisplay.model.VideodisplayModel;
@@ -20,7 +19,6 @@ package org.opencast.engage.brick.videodisplay.control {
 		public var zoomController: ZoomController;
 		
 		public function toggleFullScreen(): void {
-			
 			try {
 				switch (Application.application.stage.displayState) {
 					case StageDisplayState.FULL_SCREEN:

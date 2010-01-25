@@ -25,11 +25,13 @@
 	backgroundColor="#000000"
 	preinitialize="{ onPreinitialize(); }"
 	addedToStage="onAddedToStage()"
+	focusOut="setFocus();"
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*"
 	xmlns:ns1="bridge.*">
 	<mx:Style source="style/standard_videodisplay.css"/>
 	<mx:Script>
 		<![CDATA[
+			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
 			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import mx.controls.Alert;
 			import org.opencast.engage.brick.videodisplay.control.event.SetVolumeEvent;
@@ -42,10 +44,14 @@
 			[Bindable]
 			public var model:VideodisplayModel;
 			
+			private var fullScreenController: FullScreenController;
+			
 			/** load Beans */
 			private function onPreinitialize(): void {
 				Swiz.getInstance().loadBeans( [VideodisplayBean ] );
 				Swiz.autowire(this);
+			
+				fullScreenController = Swiz.getBean("fullScreenController") as FullScreenController;
 			}
 			
 			public function play(): void {
@@ -61,7 +67,9 @@
 			}
 			
 			private function onAddedToStage(): void {
-				stage.addEventListener(KeyboardEvent.KEY_UP, reportKeyDown);
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
+				setFocus();
+				
 			}
 			
 			public function seek(time:Number): void {
@@ -80,27 +88,96 @@
 			}
       
 			private function reportKeyDown(event:KeyboardEvent): void {
-				passCharCode(event.charCode);
+
+				// Alert.show(event.toString());
+				// Alert.show(String(event.target));
+								
+				switch (event.charCode) {
+					
+					case 13: // Return 
+					case 32: // Leertaste
+						if (model.player.playing)
+							Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));	
+						else
+							Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));	
+						break;
+						
+					case 102: // f
+					case 70: // F
+						// Toggle Fullscreen						
+						fullScreenController.toggleFullScreen();
+						break;
+						
+					case 110: // n
+					case 88: // N
+						// Next Slide
+						break;
+						
+					case 112: // p
+					case 80: // P
+						// Previous Slide
+						break;
+					
+					default:
+						switch (event.keyCode) {
+							
+							case 38: // Up Arrow								
+								setVolume(Math.max(Math.min(getVolume() + 0.05, 100), 0));
+								break;
+								
+							case 40: // Down Arrow
+								setVolume(Math.max(Math.min(getVolume() - 0.05, 100), 0));
+								break;
+								
+							case 37: // Left Arrow
+								seek(Math.max(model.currentPlayhead - 30, 0));
+								break;
+								
+							case 39: // Right Arrow
+								seek(Math.min(model.currentPlayhead + 30, model.currentDuration));
+								break;
+							
+						}
+				} 
+				event.charCode = 0;
+				event.stopPropagation();
+				
 			}
 			
-			public function passCharCode(charCode:int): void {
+			/*
+			public function passCharCode(charCode: int, ctrl: Boolean = false, 
+				alt: Boolean = false, shift: Boolean = false): void {
 					
-				if(charCode == 13 || charCode == 32) // Return oder Leertaste
-				{
-					if(model.player.playing)
-						Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));	
-					else
-						Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));	
-				}
-				else if(charCode == 110 || charCode == 88) // n oder N
-				{
-					// Next Slide
-				} 
-				else if(charCode == 112 || charCode == 80) // p oder P
-				{
-					// Previous Slide
+				// Alert.show(charCode.toString());			
+				
+				switch (charCode) {
+					
+					case 13: // Return 
+					case 32: // Leertaste
+						if (model.player.playing)
+							Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));	
+						else
+							Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));	
+						break;
+						
+					case 102: // f
+					case 70: // F
+						// Toggle Fullscreen
+						fullScreenController.toggleFullScreen();
+						break;
+						
+					case 110: // n
+					case 88: // N
+						// Next Slide
+						break;
+						
+					case 112: // p
+					case 80: // P
+						// Previous Slide
+						break;
 				}        
 			}
+			*/
 			
   		]]>
 	</mx:Script>
