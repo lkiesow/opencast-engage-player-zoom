@@ -144,41 +144,6 @@
 				
 			}
 			
-			/*
-			public function passCharCode(charCode: int, ctrl: Boolean = false, 
-				alt: Boolean = false, shift: Boolean = false): void {
-					
-				// Alert.show(charCode.toString());			
-				
-				switch (charCode) {
-					
-					case 13: // Return 
-					case 32: // Leertaste
-						if (model.player.playing)
-							Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PAUSE));	
-						else
-							Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));	
-						break;
-						
-					case 102: // f
-					case 70: // F
-						// Toggle Fullscreen
-						fullScreenController.toggleFullScreen();
-						break;
-						
-					case 110: // n
-					case 88: // N
-						// Next Slide
-						break;
-						
-					case 112: // p
-					case 80: // P
-						// Previous Slide
-						break;
-				}        
-			}
-			*/
-			
   		]]>
 	</mx:Script>
 	

@@ -8,19 +8,15 @@
 	mouseDown="dragController.startDrag(event.stageX, event.stageY);"
 	mouseMove="onMouseMove(event);"
 	mouseUp="dragController.stopDrag(event.stageX, event.stageY);"
+	creationComplete="init();"
 	xmlns:view="org.opencast.engage.brick.videodisplay.view.*">
 	<mx:Script>
 		<![CDATA[
-			import org.osmf.events.MediaPlayerStateChangeEvent;
-			import mx.controls.Alert;
-			import org.osmf.display.ScaleMode;
-			import mx.events.ResizeEvent;
-			import mx.controls.VideoDisplay;
-			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
+			import flash.net.navigateToURL;
 			import mx.core.Application;
+			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
 			import org.opencast.engage.brick.videodisplay.control.DragController;
 			import org.opencast.engage.brick.videodisplay.control.ZoomController;
-			import org.opencast.engage.brick.videodisplay.control.event.SetVolumeEvent;
 			import org.opencast.engage.brick.videodisplay.state.PlayerState;
 			import org.opencast.engage.brick.videodisplay.control.event.VideoControlEvent;
 			import org.swizframework.Swiz;
@@ -44,6 +40,31 @@
 			[Autowire(bean="fullScreenController")]
 			public var fullScreenController: FullScreenController;
 			
+			private function init(): void {			
+				
+				var params: Object = Application.application.parameters;
+				
+				if (params.defaultZoomButton && (params.defaultZoomButton == 'false'))
+					buttonContainer.removeChild(defaultZoomButton);
+				
+				if (params.videoSizeZoomButton && (params.videoSizeZoomButton == 'false'))
+					buttonContainer.removeChild(videoSizeZoomButton);
+				
+				if (params.zoomOutButton && (params.zoomOutButton == 'false'))
+					buttonContainer.removeChild(zoomOutButton);
+				
+				if (params.zoomInButton && (params.zoomInButton == 'false'))
+					buttonContainer.removeChild(zoomInButton);
+				
+				if (params.fullScreenButton && (params.fullScreenButton == 'false'))
+					buttonContainer.removeChild(fullScreenButton);
+				
+				if (!params.downloadButton || !params.video_url || (params.downloadButton != 'true'))
+					buttonContainer.removeChild(downloadButton);
+				
+			
+			}
+			
 			private function onMouseMove(event: MouseEvent): void {
 				
 				dragController.dragDisplay(event.stageX, event.stageY);
@@ -63,6 +84,27 @@
 				} else {
 					Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.PLAY));	
 				} 			
+			
+			}
+			
+			private function downloadVideo(): void {
+			
+				if (Application.application.parameters.video_url)
+					navigateToURL(new URLRequest(Application.application.parameters.video_url), '_self');
+					
+				/*
+			      var appUrl:URLRequest = new URLRequest();
+			      appUrl.url = "http://blah.com/blah/blahblah";;
+			      appUrl.method = URLRequestMethod.POST;
+			      
+			      var variables:URLVariables = new URLVariables();
+			      variables.data = data;// file data
+			      variables.fName = name;// file name
+			      variables.fType = type;// file type  ex: text/csv
+			      appUrl.data = variables;
+			      
+			      flash.net.navigateToURL(appUrl, "_top"); 
+				*/
 			
 			}
 
@@ -243,6 +285,15 @@
 					focusEnabled="false"
 					buttonMode="true" 
 					toolTip="Toggle fullscreen mode"/>
+					
+				<mx:Button id="downloadButton"
+					click="{ downloadVideo(); }"
+					height="{ buttonContainer.height }"
+					width="{ downloadButton.height }"
+					styleName="Download"
+					focusEnabled="false"
+					buttonMode="true"
+					toolTip="Download video"/>
 											
 			</mx:HBox>
 				

@@ -101,3 +101,17 @@ Button.FullScreen
   selectedDownSkin: Embed(source='skin_fullscreen_up.swf');
   selectedDisabledSkin: Embed(source='skin_fullscreen_up.swf');
 }
+
+Button.Download
+{
+  font-size: 0;
+
+  upSkin: Embed(source='skin_download_up.swf');
+  overSkin: Embed(source='skin_download_up.swf');
+  downSkin: Embed(source='skin_download_down.swf');
+  disabledSkin: Embed(source='skin_download_up.swf');
+  selectedUpSkin: Embed(source='skin_download_up.swf');
+  selectedOverSkin: Embed(source='skin_download_up.swf');
+  selectedDownSkin: Embed(source='skin_download_up.swf');
+  selectedDisabledSkin: Embed(source='skin_download_up.swf');
+}
