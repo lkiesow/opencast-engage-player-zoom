@@ -31,6 +31,7 @@
 	<mx:Style source="style/standard_videodisplay.css"/>
 	<mx:Script>
 		<![CDATA[
+			import org.osmf.display.MediaPlayerSprite;
 			import org.opencast.engage.brick.videodisplay.control.FullScreenController;
 			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import mx.controls.Alert;
@@ -65,11 +66,23 @@
 			public function stop(): void {
 				Swiz.dispatchEvent( new VideoControlEvent(VideoControlEvent.STOP));	
 			}
+
+			public function setAspectRatio(aspectRatio: Number): void {
+				
+				if (model && model.player && model.player.mediaPlayerSprite) {
+					var mps: MediaPlayerSprite = model.player.mediaPlayerSprite;
+					if ( (mps.width / mps.height) > aspectRatio) {
+						mps.setIntrinsicSize(mps.width, mps.width / aspectRatio);
+					} else {
+						mps.setIntrinsicSize(mps.height * aspectRatio, mps.height);
+					}
+				}
+				
+			}
 			
 			private function onAddedToStage(): void {
 				stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
 				setFocus();
-				
 			}
 			
 			public function seek(time:Number): void {
@@ -106,6 +119,11 @@
 					case 70: // F
 						// Toggle Fullscreen						
 						fullScreenController.toggleFullScreen();
+						break;
+						
+					case 97: // a
+					case 65: // A
+						// setAspectRatio(...);
 						break;
 						
 					case 110: // n

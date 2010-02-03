@@ -122,6 +122,31 @@
 						sprite.addEventListener(Event.ADDED, onAddVideo);
 					}
 				}
+				
+				// set aspect ratio
+				if (Application.application.parameters.aspectRatio) {
+					wrapper.mediaPlayer.addEventListener(DimensionChangeEvent.DIMENSION_CHANGE, 
+						function(): void {
+							var aspectRatio: Number = Application.application.parameters.aspectRatio;
+							if (model && model.player && model.player.mediaPlayerSprite) {
+								var mps: MediaPlayerSprite = model.player.mediaPlayerSprite;
+								if ( (mps.width / mps.height) > aspectRatio) {
+									mps.setIntrinsicSize(mps.width, mps.width / aspectRatio);
+								} else {
+									mps.setIntrinsicSize(mps.height * aspectRatio, mps.height);
+								}
+							}
+						});
+					var aspectRatio: Number = Application.application.parameters.aspectRatio;
+					if (model && model.player && model.player.mediaPlayerSprite) {
+						var mps: MediaPlayerSprite = model.player.mediaPlayerSprite;
+						if ( (mps.width / mps.height) > aspectRatio) {
+							mps.setIntrinsicSize(mps.width, mps.width / aspectRatio);
+						} else {
+							mps.setIntrinsicSize(mps.height * aspectRatio, mps.height);
+						}
+					}
+				}
 			
 			}
 			

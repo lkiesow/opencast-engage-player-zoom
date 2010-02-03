@@ -553,6 +553,10 @@ package com.adobe.strobe.players
 		{
 			dispatchEvent(event.clone());
 		}
+		
+		public function get mediaPlayerSprite(): MediaPlayerSprite {
+			return _player;
+		}
 
 		protected var _player : MediaPlayerSprite;
 	}

@@ -19,6 +19,7 @@ KEY                  VALUE
 bridgeName           Must be b_Videodisplay
 video_url            The URL of the video
 autoplay             If playback is started automatically (true/false)
+aspectRatio          Explicit specification aspect ratio of the displayed video
 defaultZoomButton    Whether there sould be a defaultZoomButton or not (true [default]/false)
 videoSizeZoomButton  Whether there sould be a videoSizeZoomButton or not (true [default]/false)
 zoomOutButton        Whether there sould be a zoomOutButton or not (true [default]/false)
